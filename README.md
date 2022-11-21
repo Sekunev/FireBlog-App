@@ -1,39 +1,39 @@
-<p>Clarusway<img align="right"
-  src="https://secure.meetupstatic.com/photos/event/3/1/b/9/600_488352729.jpeg"  width="15px"></p>
+# FireBlog App
 
-# Project-008 : FireBlog App (Milestone)
+### Check The Live Website ➡️ [Live Website](https://sekunev-tailwind-movie-app.netlify.app/)
 
 ## Description
 
 Project aims to create a FireBlog App.
 
-## Problem Statement
+### Visualization of the Website
 
-- We are adding a new project to our portfolios. So you and your colleagues have started to work on the project.
+![image](https://github.com/Sekunev/movie-app/blob/main/Animation.gif)
 
 ## Project Skeleton
 
 ```
-008 - FireBlog App (folder)
+FireBlog App (folder)
 |
-|----readme.md         # Given to the students (Definition of the project)
+|----readme.md
 SOLUTION
 ├── public
 │     └── index.html
 ├── src
-│    ├── app-router
-│    │       ├── AppRouter.js
-│    │       └── PrivateRouter.js
+│    ├── routers
+│    │       ├── AppRouter.jsx
+│    │       └── PrivateRouter.jsx
 │    ├── components
-│    │       ├── BlogCard.js
-│    │       ├── BlogForm.js
-│    │       └── Navbar.js
+│    │       ├── BlogCard.jsx
+│    │       ├── Footer.jsx
+│    │       └── Navbar.jsx
 │    ├── contexts
-│    │       ├── AuthContext.js
-│    │       └── BlogContext.js
+│    │       ├── AuthContext.jsx
+│    │       └── BlogContext.jsx
 │    ├── helpers
 │    │       ├── firebase.js
-│    │       └── toastNotify.js
+│    │       ├── functions.jsx
+│    │       └── toastNotify.jsx
 │    ├── pages
 │    │       ├── About.js
 │    │       ├── Dashboard.js
@@ -49,49 +49,11 @@ SOLUTION
 │    ├── App.css
 │    ├── index.js
 │    └── index.css
-├── .env
+│
 ├── package.json
 └── yarn.lock
 ```
 
-## Expected Outcome
+### Used in this project
 
-![Project 008 Snapshot](fireblog.gif)
-
-## Objective
-
-Build a Register FireBlog App using ReactJS.
-
-### At the end of the project, following topics are to be covered;
-
-- HTML
-
-- CSS
-
-- JS
-
-- ReactJS
-
-### At the end of the project, students will be able to;
-
-- improve coding skills within HTML & CSS & JS & ReactJS.
-
-- use git commands (push, pull, commit, add etc.) and Github as Version Control System.
-
-## Steps to Solution
-
-- Step 1 : Create React App using `npx create-react-app fireblog-app`
-
-- Step 2 : Use Firebase Auth for authentication and Firebase Realtime Database for CRUD operations.
-
-- Step 3 : You can use css frameworks like Bootstrap, Semantic UI, Material UI.
-
-- Step 4 : You can view sample app on https://eds-fireblog.herokuapp.com/.
-
-- Step 5 : Add project gif to your project and README.md file.
-
-## Notes
-
-- You can add additional functionalities to your app.
-
-**<p align="center">&#9786; Happy Coding &#9997;</p>**
+👉 I mastered ReactJS, React Router, Context, Formik, Yup, Firebase Realtime Database, Material UI, react-toastify, features in this project. You can see the visual representation of the website above.

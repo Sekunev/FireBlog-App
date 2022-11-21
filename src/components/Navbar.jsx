@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { useBlogContext } from "../contexts/BlogContext";
 import { logouth } from "../helpers/firebase";
 import { useAuthContext } from "../contexts/AuthContext";
-
 import Avatar from "@mui/material/Avatar";
 
 const initialValues = {
