@@ -1,6 +1,6 @@
 # FireBlog App
 
-### Check The Live Website ➡️ [Live Website](https://sekunev-tailwind-movie-app.netlify.app/)
+### Check The Live Website ➡️ [Live Website](https://sekunev-blog-app.netlify.app//)
 
 ## Description
 
@@ -8,7 +8,7 @@ Project aims to create a FireBlog App.
 
 ### Visualization of the Website
 
-![image](https://github.com/Sekunev/movie-app/blob/main/Animation.gif)
+![image](https://github.com/Sekunev/FireBlog-App/blob/main/Animation.gif)
 
 ## Project Skeleton
 
