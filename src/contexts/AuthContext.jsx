@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { userObserver } from "../helpers/firebase";
 
 export const AuthContext = createContext();
@@ -14,6 +14,10 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuthContext = () => {
+  return useContext(AuthContext);
 };
 
 export default AuthProvider;

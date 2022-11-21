@@ -2,25 +2,24 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../contexts/AuthContext";
 import Box from "@mui/material/Box";
 import { Avatar } from "@mui/material";
 
 const Profile = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useAuthContext();
   console.log(currentUser);
   return (
     <Box
       sx={{
-        marginTop: 10,
+        marginTop: 19,
         display: "flex",
         justifyContent: "center",
       }}
     >
       <Card
         sx={{
-          width: 250,
+          width: 550,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -31,6 +30,7 @@ const Profile = () => {
         <Avatar
           alt={currentUser.displayName || ""}
           src={currentUser.photoURL}
+          sx={{ width: 250, height: 250 }}
         />
 
         <CardContent>

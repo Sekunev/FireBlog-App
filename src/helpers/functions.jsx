@@ -9,6 +9,7 @@ import {
 } from "firebase/database";
 import { useEffect, useState } from "react";
 import app from "./firebase";
+import { toastErrorNotify, toastSuccessNotify } from "./toastNotify";
 
 //! ADD BLOG
 export const AddNewBlog = (blogInfo, currentUser) => {
@@ -22,6 +23,7 @@ export const AddNewBlog = (blogInfo, currentUser) => {
     date: new Date().toDateString(),
     email: currentUser.email,
   });
+  toastSuccessNotify("Added Successfully!");
   console.log("eklendi");
 };
 
@@ -50,6 +52,7 @@ export const useFetch = () => {
 
 export const DeleteBlog = (id) => {
   const db = getDatabase(app);
+  toastErrorNotify("Deleted Successfully");
   remove(ref(db, "blog/" + id));
 };
 
@@ -58,5 +61,6 @@ export const EditBlog = (blogInfo) => {
   const db = getDatabase(app);
   const updates = {};
   updates["blog/" + blogInfo.id] = blogInfo;
+  toastSuccessNotify("Updated Successfully!");
   return update(ref(db), updates);
 };

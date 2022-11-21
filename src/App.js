@@ -1,5 +1,6 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { cyan, purple } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
+import { ToastContainer } from "react-toastify";
 import AuthProvider from "./contexts/AuthContext";
 import BlogProvider from "./contexts/BlogContext";
 import AppRouter from "./routers/AppRouter";
@@ -8,10 +9,16 @@ function App() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: purple[500],
+        light: red[200],
+        main: red[500],
+        dark: red[900],
+        contrastText: "#fff",
       },
       secondary: {
-        main: cyan[800],
+        light: red[200],
+        main: red[500],
+        dark: red[900],
+        contrastText: "#000",
       },
     },
   });
@@ -20,6 +27,7 @@ function App() {
       <AuthProvider>
         <BlogProvider>
           <AppRouter />
+          <ToastContainer />
         </BlogProvider>
       </AuthProvider>
     </ThemeProvider>

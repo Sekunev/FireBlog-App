@@ -6,17 +6,16 @@ import {
   Container,
   CssBaseline,
   FormControlLabel,
-  Grid,
   TextField,
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { ErrorMessage, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import GoogleIcon from "../assets/GoogleIcon";
-import { login, LoginWithGoogle, singInGoogle } from "../helpers/firebase";
+import { login, singInGoogle } from "../helpers/firebase";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -26,7 +25,7 @@ const loginSchema = yup.object().shape({
   password: yup
     .string()
     .min(8, "Password must have min 8 chars")
-    .min(16, "Password must have max 16 chars")
+    .max(16, "Password must have max 16 chars")
     .matches(/[a-z]+/, "Password must have a lowercase")
     .matches(/[A-Z]+/, "Password must have a uppercase")
     .matches(/\d+/, "Password must have a number")
@@ -36,7 +35,6 @@ const loginSchema = yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
 
   return (
     <div>
@@ -63,16 +61,16 @@ const Login = () => {
             <Form>
               <Box
                 sx={{
-                  marginTop: 8,
+                  marginTop: 12,
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography component="h3" variant="h3" color="primary.light">
                   Sign in
                 </Typography>
                 <Box sx={{ mt: 1 }}>
@@ -108,6 +106,7 @@ const Login = () => {
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
                   />
+
                   <Button
                     type="submit"
                     fullWidth
@@ -116,6 +115,7 @@ const Login = () => {
                   >
                     Sign In
                   </Button>
+
                   <Button
                     onClick={() => singInGoogle(navigate)}
                     type="button"
@@ -131,19 +131,9 @@ const Login = () => {
                     CONTİNUE WITH GOOGLE
                     <GoogleIcon />
                   </Button>
-
-                  <Grid container>
-                    <Grid item xs>
-                      <Link to="#" variant="body2">
-                        Forgot password?
-                      </Link>
-                    </Grid>
-                    <Grid item>
-                      <Link to="/register" variant="body2">
-                        {"Don't have an account? Sign Up"}
-                      </Link>
-                    </Grid>
-                  </Grid>
+                  <Box sx={{ textAlign: "center", mt: 2 }}>
+                    <Link to="/register">Don't have an account? Sign Up</Link>
+                  </Box>
                 </Box>
               </Box>
             </Form>

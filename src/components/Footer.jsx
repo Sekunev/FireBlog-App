@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import { cyan } from "@mui/material/colors";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
@@ -10,7 +9,8 @@ const Footer = () => {
       <Box
         sx={{
           position: "fixed",
-          backgroundColor: cyan[700],
+          backgroundColor: "secondary.main",
+
           color: "white",
           width: "100%",
           display: "flex",
@@ -29,11 +29,15 @@ const Footer = () => {
             justifyContent: "center",
           }}
         >
-          <a href="https://github.com/Sekunev/" target="_blank">
+          <a
+            href="https://github.com/Sekunev/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <GitHubIcon
               sx={{
                 fontSize: "2rem",
-                color: "white",
+                color: "primary.contrastText",
                 transition: "all .5s",
                 "&:hover": {
                   transform: "scale(1.2)",
@@ -45,11 +49,12 @@ const Footer = () => {
           <a
             href="https://www.linkedin.com/in/abdullah-ahlatli/"
             target="_blank"
+            rel="noreferrer"
           >
             <LinkedInIcon
               sx={{
                 fontSize: "2rem",
-                color: "white",
+                color: "primary.contrastText",
                 transition: "all .5s",
                 "&:hover": {
                   transform: "scale(1.2)",

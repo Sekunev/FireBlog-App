@@ -9,6 +9,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
 } from "firebase/auth";
+import { toastErrorNotify, toastSuccessNotify } from "./toastNotify";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -38,8 +39,10 @@ export const register = async (email, password, navigate, displayName) => {
     });
     navigate("/");
     console.log(userCredential);
+    toastSuccessNotify("Registered successfully!");
   } catch (error) {
     console.log(error);
+    toastErrorNotify(error.message);
   }
 };
 
@@ -50,9 +53,11 @@ export const login = (email, password, navigate) => {
       const user = userCredential.user;
       console.log(user);
       navigate("/");
+      toastSuccessNotify("Logged in successfully!");
     })
     .catch((error) => {
       console.log(error);
+      toastErrorNotify(error.message);
     });
 };
 
@@ -65,9 +70,11 @@ export const singInGoogle = (navigate) => {
       const user = result.user;
       console.log(user);
       navigate("/");
+      toastSuccessNotify("Logged in successfully!");
     })
     .catch((error) => {
       console.log(error);
+      toastErrorNotify(error.message);
     });
 };
 
@@ -91,4 +98,5 @@ export const userObserver = (setCurrentUser) => {
 
 export const logouth = () => {
   signOut(auth);
+  toastSuccessNotify("Logged out successfully!");
 };

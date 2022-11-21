@@ -8,10 +8,7 @@ import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { Box, Button, CssBaseline, TextField } from "@mui/material";
 import { register, singInGoogle } from "../helpers/firebase";
-import { useEffect } from "react";
-import { toastErrorNotify, toastSuccessNotify } from "../helpers/toastNotify";
 import GoogleIcon from "../assets/GoogleIcon";
-import { useState } from "react";
 
 const registerSchema = yup.object().shape({
   email: yup
@@ -42,14 +39,23 @@ const Register = () => {
         // xs={12}
         rowSpacing={{ sm: 3 }}
         sx={{
+          marginTop: "12rem",
           height: "100vh",
           p: 2,
         }}
       >
-        <Grid item xs={12} sm={10} md={12}>
+        <Grid
+          item
+          xs={12}
+          sm={10}
+          md={12}
+          sx={{
+            marginTop: "7rem",
+          }}
+        >
           <Avatar
             sx={{
-              backgroundColor: "secondary.light",
+              backgroundColor: "primary.main",
               m: "auto",
               width: 40,
               height: 40,
@@ -57,12 +63,7 @@ const Register = () => {
           >
             <LockIcon size="30" />
           </Avatar>
-          <Typography
-            variant="h4"
-            align="center"
-            mb={2}
-            color="secondary.light"
-          >
+          <Typography variant="h3" align="center" mb={2} color="primary.light">
             Register
           </Typography>
           <Formik
@@ -76,7 +77,6 @@ const Register = () => {
             onSubmit={(values, actions) => {
               const displayName = `${values.firstname} ${values.lastname}`;
               register(values.email, values.password, navigate, displayName);
-              navigate("/");
               actions.resetForm();
               actions.setSubmitting(false);
             }}
@@ -176,7 +176,7 @@ const Register = () => {
           </Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Link to="/">Do you have an account?</Link>
+            <Link to="/login">Do you have an account?</Link>
           </Box>
         </Grid>
         <Grid item xs={0} sm={7} md={6}></Grid>

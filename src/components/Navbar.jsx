@@ -8,11 +8,10 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
-
-import { BlogContext, useBlogContext } from "../contexts/BlogContext";
+import { useBlogContext } from "../contexts/BlogContext";
 import { logouth } from "../helpers/firebase";
-import { AuthContext, useAuthContext } from "../contexts/AuthContext";
-import { useContext } from "react";
+import { useAuthContext } from "../contexts/AuthContext";
+
 import Avatar from "@mui/material/Avatar";
 
 const initialValues = {
@@ -23,8 +22,8 @@ const initialValues = {
 
 const NavbarComp = () => {
   const navigate = useNavigate();
-  const { currentUser } = useContext(AuthContext);
-  const { setBlogInfo } = useContext(BlogContext);
+  const { currentUser } = useAuthContext();
+  const { setBlogInfo } = useBlogContext();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleMenu = (event) => {
@@ -58,44 +57,41 @@ const NavbarComp = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }} color="primary">
-      <AppBar position="fixed">
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Avatar
-            className="bjkicon"
-            alt="Remy Sharp"
-            src="https://i.pinimg.com/originals/f7/6d/1c/f76d1c3bffcd5e8599e8f7cc10bd2c00.gif"
-            sx={{ height: "auto", m: 1, cursor: "Pointer" }}
-            onClick={() => navigate("/")}
-          />
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed" color="secondary">
+        <Toolbar
+          color="primary.light"
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
           <Typography
-            variant="h5"
+            variant="h4"
             noWrap
-            component="a"
             sx={{
               mr: 2,
-              display: { xs: "none", sm: "flex" },
+              display: { xs: "none", sm: "contents" },
               flexGrow: 1,
-              fontFamily: "arial",
+              fontFamily: "Rubik Glitch",
               cursor: "Pointer",
-              color: "inherit",
+              color: "primary.contrastText",
               textDecoration: "none",
             }}
-            onClick={() => navigate("/")}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+            }}
           >
             Sekunev Fire Blog App
           </Typography>
           <Typography
-            variant="h5"
+            variant="h4"
             noWrap
-            component="a"
             sx={{
               mr: 2,
-              display: { xs: "flex", sm: "none" },
+              display: { xs: "contents", sm: "none" },
               flexGrow: 1,
-              fontFamily: "arial",
+              fontFamily: "Rubik Glitch",
               cursor: "Pointer",
-              color: "inherit",
+              color: "primary.contrastText",
               textDecoration: "none",
             }}
             onClick={() => navigate("/")}
@@ -120,7 +116,7 @@ const NavbarComp = () => {
                     sx={{ width: 56, height: 56 }}
                   />
                 ) : (
-                  <AccountCircle sx={{ fontSize: 56 }} />
+                  <AccountCircle sx={{ fontSize: 56, color: "primary.dark" }} />
                 )}
               </IconButton>
               <Menu

@@ -5,19 +5,18 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Grid } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
-import { AuthContext, useAuthContext } from "../contexts/AuthContext";
-import { BlogContext, useBlogContext } from "../contexts/BlogContext";
+import { useAuthContext } from "../contexts/AuthContext";
+import { useBlogContext } from "../contexts/BlogContext";
 import { DeleteBlog } from "../helpers/functions";
-import { useContext } from "react";
 
 const Details = () => {
   const navigate = useNavigate();
 
-  const { blogInfo, setBlogInfo } = useContext(BlogContext);
-  const { currentUser } = useContext(AuthContext);
+  const { blogInfo, setBlogInfo } = useBlogContext();
+  const { currentUser } = useAuthContext();
 
   const { state: item } = useLocation();
   const { id, content, imageUrl, date, email, title } = item;
@@ -41,26 +40,55 @@ const Details = () => {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center" display={}>
-      <Card sx={{ width: 645, minWidth: 345, height: 545, marginTop: "9rem" }}>
-        <CardMedia component="img" height="340" image={imageUrl} alt="img" />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {date}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {content}
-          </Typography>
-        </CardContent>
-      </Card>
-      <Button variant="contained" color="error" onClick={() => navigate("/")}>
-        <ReplyAllIcon sx={{ marginRight: "1rem" }} />
-        Go Back
-      </Button>
-      <>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Grid item>
+        <Card
+          sx={{
+            width: 645,
+            minWidth: 345,
+            marginTop: "7rem",
+            borderRadius: "10px",
+          }}
+        >
+          <CardMedia component="img" height="340" image={imageUrl} alt="img" />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {date}
+            </Typography>
+            <Typography
+              variant="body1"
+              color="secondary.dark"
+              autoComplete="content"
+              multiline
+            >
+              {content}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid
+        item
+        mt={2}
+        display="flex"
+        justifyContent="center"
+        direction="column"
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/")}
+        >
+          <ReplyAllIcon sx={{ marginRight: "1rem" }} />
+          Go Back
+        </Button>
         <CardActions>
           {currentUser.email === email && (
             <Box
@@ -73,9 +101,9 @@ const Details = () => {
             >
               <Button
                 variant="contained"
-                color="secondary"
+                color="primary"
                 onClick={handleUpdateBlog}
-                sx={{ color: "white" }}
+                sx={{ color: "white", marginRight: "1rem" }}
               >
                 Update
               </Button>
@@ -90,7 +118,7 @@ const Details = () => {
             </Box>
           )}
         </CardActions>
-      </>
+      </Grid>
     </Grid>
   );
 };

@@ -1,11 +1,11 @@
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import React, { useContext } from "react";
+import React from "react";
 import { Button, CssBaseline, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
-import { AuthContext, useAuthContext } from "../contexts/AuthContext";
-import { BlogContext, useBlogContext } from "../contexts/BlogContext";
+import { useAuthContext } from "../contexts/AuthContext";
+import { useBlogContext } from "../contexts/BlogContext";
 import { AddNewBlog } from "../helpers/functions";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
@@ -24,29 +24,23 @@ const initialValues = {
 
 const NewBlog = () => {
   const navigate = useNavigate();
-  const { currentUser } = useContext(AuthContext);
-  const { blogInfo, setBlogInfo } = useContext(BlogContext);
+  const { currentUser } = useAuthContext();
+  const { blogInfo, setBlogInfo } = useBlogContext();
   console.log(currentUser, blogInfo);
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   AddNewBlog(blogInfo, currentUser);
-  //   setBlogInfo(initialValues);
-  //   navigate("/");
-  // };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 1,
+          marginTop: 9,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
         <img
-          src="https://www.nemutlu.net/images/blog.png"
+          src="https://www.uptonjunior.com/_site/data/files/images/29ABAAEAACE577D4A2FA7EB559AB8EFD.jpg"
           alt=""
           style={{
             width: "20rem",
@@ -82,10 +76,15 @@ const NewBlog = () => {
             touched,
             errors,
           }) => (
-            <Form sx={{ mt: 1 }} noValidate>
+            <Form
+              sx={{
+                mt: 1,
+                display: "flex",
+                justfyContent: "center",
+              }}
+            >
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 id="title"
                 label="Title"
@@ -100,7 +99,6 @@ const NewBlog = () => {
               />
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 name="imageUrl"
                 label="Image Url"
@@ -112,7 +110,6 @@ const NewBlog = () => {
                 error={touched.imageUrl && Boolean(errors.imageUrl)}
                 helperText={touched.imageUrl && errors.imageUrl}
               />
-
               <TextField
                 margin="normal"
                 type="text"
@@ -128,14 +125,13 @@ const NewBlog = () => {
                 onBlur={handleBlur}
                 error={touched.content && Boolean(errors.content)}
                 helperText={touched.content && errors.content}
-                multiline
                 rows={10}
               />
               <Button
                 type="submit"
-                fullWidth
                 variant="contained"
                 color="primary"
+                fullWidth
                 sx={{ mt: 3, mb: 2 }}
               >
                 Submit

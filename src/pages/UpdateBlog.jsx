@@ -5,13 +5,12 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useContext } from "react";
 import { EditBlog } from "../helpers/functions";
 import { useNavigate } from "react-router-dom";
-import { BlogContext } from "../contexts/BlogContext";
+import { useBlogContext } from "../contexts/BlogContext";
 
 const UpdateBlog = () => {
-  const { blogInfo, setBlogInfo } = useContext(BlogContext);
+  const { blogInfo, setBlogInfo } = useBlogContext();
   console.log(blogInfo);
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -92,7 +91,7 @@ const UpdateBlog = () => {
             type="submit"
             fullWidth
             variant="contained"
-            color="secondary"
+            color="primary"
             sx={{ mt: 3, mb: 2 }}
           >
             Edit

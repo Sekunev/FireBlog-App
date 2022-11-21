@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import BlogCard from "../components/BlogCard";
 import { useFetch } from "../helpers/functions";
-import loading from "../assets/loading.gif";
+import loading from "../assets/loading-gif.gif";
 
 const Dashboard = () => {
   const { isLoading, blogList } = useFetch();
@@ -19,12 +19,12 @@ const Dashboard = () => {
       }}
     >
       {isLoading && (
-        <img src={loading} alt="" width={300} style={{ marginTop: "5rem" }} />
+        <img src={loading} alt="" width={100} style={{ marginTop: "5rem" }} />
       )}
       {blogList?.map((item) => {
         return (
-          <Grid item>
-            <BlogCard key={item.id} item={item} />
+          <Grid item key={item.id}>
+            <BlogCard item={item} />
           </Grid>
         );
       })}
