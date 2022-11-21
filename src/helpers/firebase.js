@@ -1,73 +1,94 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, push, ref, set } from "firebase/database";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithEmailAndPassword,
+  signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+} from "firebase/auth";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATA_BASE_URL,
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_APP_MESSENGER,
-  databaseURL: process.env.REACT_APP_DB_URL,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// Initialize Realtime Database and get a reference to the service
-const db = getDatabase(app);
+export default app;
+const auth = getAuth(app);
 
-export const AddUser = (info) => {
-  const db = getDatabase(firebase);
-  const userRef = ref(db, "user/");
-  const newUserRef = push(userRef);
+//!---REGISTER NEW USER
 
-  set(newUserRef, {
-    userName: info.userName,
-    phoneNumber: info.phoneNumber,
-    gender: info.gender,
+export const register = async (email, password, navigate, displayName) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    await updateProfile(auth.currentUser, {
+      displayName: displayName,
+    });
+    navigate("/");
+    console.log(userCredential);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//!---SING_IN EXISTING USER
+export const login = (email, password, navigate) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user);
+      navigate("/");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+//!---sıng ın WIDTH GOOGLE
+const provider = new GoogleAuthProvider();
+
+export const singInGoogle = (navigate) => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+      navigate("/");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+//!---USER OBSERVER ??
+
+export const userObserver = (setCurrentUser) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const { email, displayName, photoURL } = user;
+      console.log("sing in");
+      setCurrentUser({ email, displayName, photoURL });
+      console.log(user);
+    } else {
+      setCurrentUser(false);
+      console.log("user signed out");
+    }
   });
 };
 
-// READ INFO
-export const useFetch = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [contactList, setContactList] = useState();
-  useEffect(() => {
-    const db = getDatabase(firebase);
-    const userRef = ref(db, "user/");
+//!---LOGOUTH
 
-    onValue(userRef, (snapshot) => {
-      const data = snapshot.val();
-      const userArray = [];
-
-      for (let id in data) {
-        userArray.push({ id, ...data[id] });
-      }
-      setContactList(userArray);
-      setIsLoading(false);
-    });
-  }, []);
-  return { isLoading, contactList };
-};
-
-export const DeleteUser = (id) => {
-  const db = getDatabase(firebase);
-  // const userRef=ref(db,"user/")
-  remove(ref(db, "user/" + id));
-  Toastify("Sİlme işlemi başarılı");
-};
-
-export const UpdateUser = (info) => {
-  const db = getDatabase(firebase);
-  // const userRef = ref(db, "user/");
-
-  const updates = {};
-
-  updates["user/" + info.id] = info;
-
-  return update(ref(db), updates);
+export const logouth = () => {
+  signOut(auth);
 };

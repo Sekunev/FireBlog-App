@@ -11,29 +11,12 @@ import {
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import React from "react";
+import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { ErrorMessage, Form, Formik } from "formik";
 import GoogleIcon from "../assets/GoogleIcon";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" to="https://github.com/Sekunev">
-        Sekunev
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { login, LoginWithGoogle, singInGoogle } from "../helpers/firebase";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -53,6 +36,7 @@ const loginSchema = yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
 
   return (
     <div>
@@ -62,7 +46,8 @@ const Login = () => {
           initialValues={{ email: "", password: "" }}
           validationSchema={loginSchema}
           onSubmit={(values, actions) => {
-            navigate("/home");
+            login(values.email, values.password, navigate);
+            navigate("/");
             actions.resetForm();
             actions.setSubmitting(false);
           }}
@@ -99,7 +84,7 @@ const Login = () => {
                     name="email"
                     autoComplete="email"
                     autoFocus
-                    value={values.email}
+                    value={values?.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.email && Boolean(errors.email)}
@@ -113,7 +98,7 @@ const Login = () => {
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                    value={values.password}
+                    value={values?.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.password && Boolean(errors.password)}
@@ -132,6 +117,7 @@ const Login = () => {
                     Sign In
                   </Button>
                   <Button
+                    onClick={() => singInGoogle(navigate)}
                     type="button"
                     fullWidth
                     variant="outlined"
@@ -163,7 +149,6 @@ const Login = () => {
             </Form>
           )}
         </Formik>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </div>
   );
